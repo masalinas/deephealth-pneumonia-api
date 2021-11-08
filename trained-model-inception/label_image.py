@@ -21,11 +21,13 @@ import argparse
 
 import numpy as np
 import tensorflow as tf
-
+# if you install tensorflow 2.x load version v1 
+#import tensorflow.compat.v1 as tf
 
 def load_graph(model_file):
   graph = tf.Graph()
   graph_def = tf.GraphDef()
+  # graph_def = tf.compat.v1.GraphDef()
 
   with open(model_file, "rb") as f:
     graph_def.ParseFromString(f.read())
@@ -72,6 +74,8 @@ def load_labels(label_file):
 
 
 if __name__ == "__main__":
+  tf.disable_v2_behavior()
+
   # default arguments
   file_name = "tensorflow/examples/label_image/data/grace_hopper.jpg"
   model_file = "tensorflow/examples/label_image/data/inception_v3_2016_08_28_frozen.pb"
